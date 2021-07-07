@@ -54,7 +54,7 @@
 // author details
 
 // DELETE
-// Delete an author [Task] 🔥🚀
+// Delete an author [Task]
 
 // ---------------------------------------------------------------------------------------
 
@@ -76,6 +76,6 @@
 
 // DELETE
 // delete a book from publication ✅
-// delete a publication [Task] 🔥🚀
+// delete a publication [Task]
 
 // Add mongoose validation to All the models [Task] 🔥
