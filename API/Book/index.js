@@ -25,6 +25,7 @@ Router.get("/", async (req, res) => {
   */
 Router.get("/is/:isbn", async (req, res) => {
   const getSpecificBook = await BookModel.findOne({ ISBN: req.params.isbn });
+  console.log(getSpecificBook);
   if (!getSpecificBook.length) {
     return res.json({
       error: `No book found for the ISBN of ${req.params.isbn}`,
@@ -63,6 +64,7 @@ Router.get("/a/:authors", async (req, res) => {
   const getSpecificAuthors = await BookModel.findOne({
     authors: req.params.authors,
   });
+
   if (!getSpecificAuthors.length) {
     return res.json({
       error: `No book found for the Author of ${req.params.authors}`,
