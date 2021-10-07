@@ -11,8 +11,12 @@ Parameters      NONE
 Method          GET
 */
 Router.get("/", async (req, res) => {
-  const getAllAuthors = await AuthorModel.find();
-  return res.json({ getAllAuthors });
+  try {
+    const getAllAuthors = await AuthorModel.find();
+    return res.json({ getAllAuthors });
+  } catch (error) {
+    return res.json({ error: error.message });
+  }
 });
 
 /*
@@ -23,15 +27,19 @@ Router.get("/", async (req, res) => {
   Method          GET
   */
 Router.get("/:name", async (req, res) => {
-  const getSpecificAuthor = await AuthorModel.findOne({
-    name: req.params.name,
-  });
-  if (!getSpecificAuthor.length) {
-    return res.json({
-      error: `No author found for the name of ${req.params.name}`,
+  try {
+    const getSpecificAuthor = await AuthorModel.findOne({
+      name: req.params.name,
     });
+    if (!getSpecificAuthor.length) {
+      return res.json({
+        error: `No author found for the name of ${req.params.name}`,
+      });
+    }
+    return res.json({ AUTHOR: getSpecificAuthor });
+  } catch (error) {
+    return res.json({ error: error.message });
   }
-  return res.json({ AUTHOR: getSpecificAuthor });
 });
 
 /*
@@ -42,15 +50,19 @@ Router.get("/:name", async (req, res) => {
   Method          GET
   */
 Router.get("/:books", async (req, res) => {
-  const getAuthorSpecificBooks = await AuthorModel.findOne({
-    books: req.params.books,
-  });
-  if (!getAuthorSpecificBooks.length) {
-    return res.json({
-      error: `No Author found for the book of ${req.params.books}`,
+  try {
+    const getAuthorSpecificBooks = await AuthorModel.findOne({
+      books: req.params.books,
     });
+    if (!getAuthorSpecificBooks.length) {
+      return res.json({
+        error: `No Author found for the book of ${req.params.books}`,
+      });
+    }
+    return res.json({ Author: getAuthorSpecificBooks });
+  } catch (error) {
+    return res.json({ error: error.message });
   }
-  return res.json({ Author: getAuthorSpecificBooks });
 });
 /*
 Route           /author/new
@@ -61,10 +73,14 @@ Method          POST
 */
 
 Router.post("/new", async (req, res) => {
-  const { newAuthor } = req.body;
-  AuthorModel.create(newAuthor);
+  try {
+    const { newAuthor } = req.body;
+    AuthorModel.create(newAuthor);
 
-  return res.json({ message: "author was added!" });
+    return res.json({ message: "author was added!" });
+  } catch (error) {
+    return res.json({ error: error.message });
+  }
 });
 /*
 Route           /author/delete/:isbn
@@ -74,13 +90,17 @@ Parameters      NONE
 Method          DELETE
 */
 Router.delete("/delete/:id", async (req, res) => {
-  const updatedAuthorDatabase = await AuthorModel.findOneAndDelete({
-    id: parseInt(req.params.id),
-  });
-  //const updatedAuthorDatabase = database.authors.filter(
-  //  (author) => author.id !== parseInt(req.params.id)
-  // );
+  try {
+    const updatedAuthorDatabase = await AuthorModel.findOneAndDelete({
+      id: parseInt(req.params.id),
+    });
+    //const updatedAuthorDatabase = database.authors.filter(
+    //  (author) => author.id !== parseInt(req.params.id)
+    // );
 
-  return res.json({ books: updatedAuthorDatabase });
+    return res.json({ books: updatedAuthorDatabase });
+  } catch (error) {
+    return res.json({ error: error.message });
+  }
 });
 module.exports = Router;
