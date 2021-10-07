@@ -54,7 +54,7 @@ Router.get("/c/:category", async (req, res) => {
     const getSpecificBooks = await BookModel.findOne({
       category: req.params.category,
     });
-    if (!getSpecificBooks.length) {
+    if (!getSpecificBooks) {
       return res.json({
         error: `No book found for the category of ${req.params.category}`,
       });
