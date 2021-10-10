@@ -20,7 +20,7 @@ Router.get("/", async (req, res) => {
 });
 
 /*
-  Route           /author/:isbn
+  Route           /:name
   Description     get specific author
   Access          PUBLIC
   Parameters      names
@@ -64,6 +64,7 @@ Router.get("/:books", async (req, res) => {
     return res.json({ error: error.message });
   }
 });
+
 /*
 Route           /author/new
 Description     add new author
@@ -76,7 +77,6 @@ Router.post("/new", async (req, res) => {
   try {
     const { newAuthor } = req.body;
     AuthorModel.create(newAuthor);
-
     return res.json({ message: "author was added!" });
   } catch (error) {
     return res.json({ error: error.message });

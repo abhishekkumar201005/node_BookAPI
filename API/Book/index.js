@@ -72,6 +72,7 @@ Router.get("/c/:category", async (req, res) => {
   Parameters      authors
   Method          GET
   */
+
 Router.get("/a/:authors", async (req, res) => {
   try {
     const getSpecificAuthors = await BookModel.findOne({
@@ -107,6 +108,7 @@ Router.post("/new", async (req, res) => {
     return res.json({ error: error.message });
   }
 });
+
 //------------------PUT Method------------------------------------------------//
 /*
 Route           /book/update
